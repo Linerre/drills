@@ -3,8 +3,8 @@
   for fahr = 0, 20, ..., 300 */
 main()
 {
-  int fahr, celsius;
-  int lower, upper, step;
+  float fahr, celsius; // float is more accurate
+  float lower, upper, step;
 
   lower = 0;     /* lower limit of temperature scale */
   upper = 300;   /* upper limit*/
