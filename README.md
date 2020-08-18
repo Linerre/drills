@@ -1,2 +1,2 @@
 # The C Programming Language 2nd
-Deprecated. New repo will be linked later.
+Notes and exercises when reading the classic *The C Programming Language*.
