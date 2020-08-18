@@ -2,3 +2,6 @@ output/
 
 # ignore exmaple code in chapter 1
 chap1/example/*.c
+
+# ignore obsidian files
+.obsidian/
