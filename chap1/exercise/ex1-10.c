@@ -6,18 +6,15 @@ main() {
   int c;
 
   while ((c = getchar()) != EOF) {
-    if (c == '\b') {
-      c = '\\b';
-      putchar(c);
-    }
-     if (c == '\t') {
-      c = "\\t";
-      putchar(c);
-    }
-     if (c == '\\') {
-      c = "\\";
-      putchar(c);
-    }
-    putchar(c);
+    if (c == '\b')
+      printf("\\b");
+    if (c == '\t')
+      printf("\\t");
+    if (c == '\\')
+      printf("\\\\");
+    if (c != '\b')
+      if(c != '\t')
+        if(c != '\\')
+          putchar(c);
   }
 }
