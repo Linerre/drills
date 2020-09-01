@@ -17,7 +17,7 @@ main() {
     } else
       state = OUT;
     for (i = 0; i < nletter; ++i)
-      printf("#");
-  nletter = 0;
-  } 
+        printf("#");
+    nletter = 0;
+  }
 }
