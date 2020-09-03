@@ -8,3 +8,6 @@ chap1/example/*.c
 
 # ignore any .exe file
 a.exe
+
+# ignore any notes
+notes/
