@@ -11,3 +11,6 @@ a.exe
 
 # ignore any notes
 notes/
+
+# ignore IDE files
+.idea/
