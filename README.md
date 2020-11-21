@@ -1,2 +1,2 @@
-# The C Programming Language 2nd
-Notes and exercises when reading the classic *The C Programming Language*.
+# Drills
+Whenever I study a book on programming, be it about a language, a architecture or a tool, I put the exercise files here.
