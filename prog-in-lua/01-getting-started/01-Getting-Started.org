@@ -1,0 +1,160 @@
+* Programming in Lua /4th/
+** DONE 1. Getting Started [100%]
+*** DONE Chunks [100%]
+**** DONE What is a chunk?
+   1. a /file/ or a single line of code in interactive mode src_lua{print("Hello World")}
+   2. a sequence of commands (or statements)
+      #+begin_src lua :results output
+      -- define sth
+      print("hello world")
+      #+end_src
+**** DONE Where to type a chunk?
+   1. starting in version *5.3* expressions can be directly used in the interactive
+      #+begin_src lua
+      math.pi / 4 --> 0.7853 ...
+      a = 15
+      a^2 --> 225
+      #+end_src
+   2. in older version expressions had to be prefixed with a ~=~
+      #+begin_src lua
+      a = 15
+      = a^2 --> 225
+      #+end_src
+**** DONE How to run a chunk 
+ 1. to run the code as a chunk, ~print()~ is needed
+  #+begin_src lua
+   a = 15
+   print(a^2)
+   print(a + 2)
+  #+end_src
+ 2. start an interactive session after running a given chunk: src_sh{lua -i a_prog}
+ 3. use function ~dofile()~ to run chunks of cold
+    - ~lib1.lua~ file:
+        #+begin_src lua
+        function norm(x, y)
+          return math.sqrt(x^2, + y^2)
+        end
+        function twice(x)
+          return 2.0 * x
+        end
+        #+end_src
+    - in interactive mode load the ~lib1.lua~ file
+        #+begin_src lua
+        dofile("lib1.lua")
+        n = norm(3.4, 1.0)
+        twice(n) -->7.088 ...
+        #+end_src
+**** DONE useful tips
+    1) open a shell and a text editor buffer side by side
+    2) editing code in buffer and load the file in shell
+*** DONE Some Lexical Conventions [100%]
+**** DONE Identifier
+- can be any string of /letters/, /digits/, /underscores/ *not beginning with a digit*
+  1) i, j, i10, _ij
+  2) aSomewahtLongName, _INPUT
+     - should avoid this, for they are reserved for special uses in lua
+     - used as dummy variables, for example
+- Lua is *case-sensitive*
+  - *and* --> reserved word
+  - AND --> an identifier
+  - And --> another identifier
+**** DONE Comments
+- single line comment:
+  #+begin_src lua
+  -- this is a single line comment
+  #+end_src
+- multiple-line comment:
+ #+begin_src lua
+ --[[a multi-line
+ comment 
+ ]] 
+-- or more preferable:
+
+--[[ this is a really 
+long comment
+--]]
+
+--[[ add one more "-" in the first line 
+will make the code stand out again
+--]] 
+ #+end_src
+**** DONE Line breaks 
+- Lua needs /no/ separators between consecutive commands
+  #+begin_src lua 
+  a = 1
+  b = a * 2
+  -- equals to
+  a = 1; 
+  b = a * 2;
+  -- equals to 
+  a = 1; b = a * 2
+  -- equals to
+  a = 1 b = a * 2 --ugly but valid
+  #+end_src
+- Tips: use =;= only when writing two or more statements in the same line (rarely do so, though) 
+**** DONE Global Variables
+- no declarations needed
+- can access non-initialized variables --> get /nil/
+- assign /nil/ == non-initialized variables
+**** DONE Types and Values
+- Lua is /dynamically typed/
+  + no type definitions needed
+  + each variable carries its own type
+- =8= basic types
+  #+begin_src lua
+  type(nil)              --> nil
+  type(true)             --> true
+  type(10.4 * 3)         --> number
+  type("Hello World")    --> string
+  type(io.stdin)         --> userdata
+  type(print)            --> function
+  type(type)             --> function
+  type({})               --> table
+  type(type(X))          --> string
+  -- result of type() is alwasy a string
+  -- one not mentioned here is "thread"
+  #+end_src
+- vars have no pre-defined types; any var can have values of any type
+- /nil/ 
+  + used to represent the =absence of a useful value=
+  + a global var has a /nil/ value by default before assignment
+- booleans
+  + =false= and =nil= are considered /false/
+  + anything else (even =0= and =empty string=), /true/
+  + logical operators: =and=, =or=, =not=
+  + both =and= and =or= use short-circuit evaluation: evaluate their 2nd operand only when necessary
+    #+begin_src lua
+    4 and 5       --> 5
+    nil and 13    --> nil
+    false and 13  --> false
+    0 or 5        --> 0
+    false or "hi" --> "hi"
+    nil or false  --> false
+    #+end_src
+  + =and= has higher precedence than =or=
+    #+begin_src lua
+    ((a and b) or c)
+    -- eqauls to
+    (a and b or c)
+    #+end_src
+    #+begin_src C
+    /* equivalent to this */
+    a ? b : c
+    /* provided b is not false */
+    #+end_src
+  + the =not= always gives a Boolean value
+**** DONE The Stand-alone Interpreter
+- ~lua.c~ (due to its source file) or ~lua~ (dut to its executable)
+- =-l= option loads a lib file
+- predefined global var ~arg~ can help a script retrieve its argument(s)
+  + the script name goes into index =0=
+  + its first argument, index =1= and so on
+  + preceding options go to negative options
+    - src_sh{lua script a b c}
+    - |Index|Element|
+      |----+--------|
+      | -1 | lua    |
+      |  0 | script |
+      |  1 | a      |
+      |  2 | b      |
+      |  3 | c      |
